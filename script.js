@@ -40,5 +40,53 @@ const db = getFirestore(app);
 console.log("Firebase collegato!");
 
         });
+// SISTEMA OTTIENI COUPON
+
+const button = document.getElementById("codeButton");
+const output = document.getElementById("userCode");
+
+
+button.addEventListener("click", async () => {
+
+    output.innerHTML = "⏳ Ricerca coupon in corso...";
+
+
+    const q = query(
+        collection(db, "coupons"),
+        where("used", "==", false)
+    );
+
+
+    const snapshot = await getDocs(q);
+
+
+    if (snapshot.empty) {
+
+        output.innerHTML = "❌ Coupon terminati.";
+
+        return;
+
+    }
+
+
+    const couponDoc = snapshot.docs[0];
+
+    const couponData = couponDoc.data();
+
+
+    await updateDoc(
+        doc(db, "coupons", couponDoc.id),
+        {
+            used: true
+        }
+    );
+
+
+    output.innerHTML =
+        "🎉 Il tuo coupon è:<br><strong>" +
+        couponData.code +
+        "</strong>";
+
+});
 
 }
