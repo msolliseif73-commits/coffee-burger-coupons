@@ -6,7 +6,6 @@ from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
 import {
     getFirestore,
     collection,
-    addDoc,
     query,
     where,
     getDocs,
@@ -40,31 +39,6 @@ const db = getFirestore(app);
 
 console.log("Firebase collegato!");
 
-
-
-
-// CREA I 30 COUPON (USARE SOLO UNA VOLTA)
-
-async function creaCoupon() {
-
-    const coupons = collection(db, "coupons");
-
-
-    for (let i = 2; i <= 30; i++) {
-
-
-        await addDoc(coupons, {
-
-            code: "BURGER" + String(i).padStart(2, "0"),
-
-            used: false
-
         });
-
-
-    }
-
-
-    console.log("Coupon creati!");
 
 }
