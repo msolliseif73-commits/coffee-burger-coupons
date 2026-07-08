@@ -68,9 +68,3 @@ async function creaCoupon() {
     console.log("Coupon creati!");
 
 }
-
-
-// ATTIVA SOLO PER CREARE I CODICI
-// POI VA CANCELLATA
-
-creaCoupon();
