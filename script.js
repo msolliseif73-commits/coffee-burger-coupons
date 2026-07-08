@@ -39,54 +39,75 @@ const db = getFirestore(app);
 
 console.log("Firebase collegato!");
 
-        });
-// SISTEMA OTTIENI COUPON
+
+
+// ELEMENTI PAGINA
 
 const button = document.getElementById("codeButton");
 const output = document.getElementById("userCode");
 
 
+
+// FUNZIONE OTTIENI COUPON
+
 button.addEventListener("click", async () => {
 
-    output.innerHTML = "⏳ Ricerca coupon in corso...";
+    output.innerHTML = "⏳ Ricerca coupon...";
 
 
-    const q = query(
-        collection(db, "coupons"),
-        where("used", "==", false)
-    );
+    try {
+
+        const q = query(
+            collection(db, "coupons"),
+            where("used", "==", false)
+        );
 
 
-    const snapshot = await getDocs(q);
+        const snapshot = await getDocs(q);
 
 
-    if (snapshot.empty) {
+        if (snapshot.empty) {
 
-        output.innerHTML = "❌ Coupon terminati.";
+            output.innerHTML = "❌ Coupon terminati.";
 
-        return;
+            return;
+
+        }
+
+
+        const couponDoc = snapshot.docs[0];
+
+        const couponData = couponDoc.data();
+
+
+
+        await updateDoc(
+
+            doc(db, "coupons", couponDoc.id),
+
+            {
+                used: true
+            }
+
+        );
+
+
+
+        output.innerHTML =
+            "🎉 Il tuo coupon è:<br><strong>" +
+            couponData.code +
+            "</strong>";
+
+
+
+    } catch(error) {
+
+        console.error(error);
+
+        output.innerHTML =
+            "❌ Errore durante il recupero del coupon.";
 
     }
 
 
-    const couponDoc = snapshot.docs[0];
-
-    const couponData = couponDoc.data();
-
-
-    await updateDoc(
-        doc(db, "coupons", couponDoc.id),
-        {
-            used: true
-        }
-    );
-
-
-    output.innerHTML =
-        "🎉 Il tuo coupon è:<br><strong>" +
-        couponData.code +
-        "</strong>";
-
 });
-
-}
