@@ -44,6 +44,7 @@ console.log("Firebase collegato!");
 // ELEMENTI PAGINA
 
 const button = document.getElementById("codeButton");
+console.log("BUTTON:", button);
 const output = document.getElementById("userCode");
 
 
