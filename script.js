@@ -1,26 +1,38 @@
+import { initializeApp } 
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    query,
+    where,
+    getDocs,
+    updateDoc,
+    doc
+}
+from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+
 // CONFIGURAZIONE FIREBASE
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBcMSMGldPfO6VriCMXEybQfCOY_iPDo-o",
-  authDomain: "coffee-burger-coupons.firebaseapp.com",
-  projectId: "coffee-burger-coupons",
-  storageBucket: "coffee-burger-coupons.firebasestorage.app",
-  messagingSenderId: "629773023583",
-  appId: "1:629773023583:web:279df3b1d6fb54d36edeea"
-  measurementId: "G-TET2SF5Z1Q"
+
+    apiKey: "AIzaSyBcMSMGldPfO6VriCMXEybQfCOY_iPDo-o",
+    authDomain: "coffee-burger-coupons.firebaseapp.com",
+    projectId: "coffee-burger-coupons",
+    storageBucket: "coffee-burger-coupons.firebasestorage.app",
+    messagingSenderId: "629773023583",
+    appId: "1:629773023583:web:279df3b1d6fb54d36edeea",
+    measurementId: "G-TET2SF5Z1Q"
+
 };
 
 
-// INIZIALIZZA FIREBASE
+// AVVIO FIREBASE
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-
-// COLLEGAMENTO FIRESTORE
-
-const db = firebase.firestore();
+const db = getFirestore(app);
 
 
-// TEST
-
-console.log("Firebase collegato!");
+console.log("Firebase collegato");
