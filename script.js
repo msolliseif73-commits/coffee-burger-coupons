@@ -1,4 +1,6 @@
-import { initializeApp } 
+// IMPORT FIREBASE
+
+import { initializeApp }
 from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
 
 import {
@@ -27,23 +29,6 @@ const firebaseConfig = {
     measurementId: "G-TET2SF5Z1Q"
 
 };
-async function creaCoupon() {
-
-    const coupons = collection(db, "coupons");
-
-    for (let i = 2; i <= 30; i++) {
-
-        await addDoc(coupons, {
-            code: "BURGER" + String(i).padStart(2, "0"),
-            used: false
-        });
-
-    }
-
-    console.log("Coupon creati!");
-}
-
-creaCoupon();
 
 
 // AVVIO FIREBASE
@@ -53,4 +38,39 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-console.log("Firebase collegato");
+console.log("Firebase collegato!");
+
+
+
+
+// CREA I 30 COUPON (USARE SOLO UNA VOLTA)
+
+async function creaCoupon() {
+
+    const coupons = collection(db, "coupons");
+
+
+    for (let i = 2; i <= 30; i++) {
+
+
+        await addDoc(coupons, {
+
+            code: "BURGER" + String(i).padStart(2, "0"),
+
+            used: false
+
+        });
+
+
+    }
+
+
+    console.log("Coupon creati!");
+
+}
+
+
+// ATTIVA SOLO PER CREARE I CODICI
+// POI VA CANCELLATA
+
+creaCoupon();
